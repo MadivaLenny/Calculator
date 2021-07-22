@@ -18,4 +18,6 @@
     <string name="decimal">.</string>
     <string name="textview2">textview</string>
     <string name="subtract">-</string>
+    <string name="todo">TODO</string>
+
 </resources>
