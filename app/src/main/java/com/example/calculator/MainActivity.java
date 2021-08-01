@@ -1,11 +1,11 @@
 package com.example.calculator;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -27,25 +27,16 @@ public class MainActivity extends AppCompatActivity {
     Button buttonDecimal;
     Button buttonCancel;
     Button buttonEquals;
-
     TextView textView;
     TextView textView2;
-
-    float mValueOne;
-    float mValueTwo;
-
+    double mValueOne = Double.NaN;
+    double mValueTwo;
     boolean Addition;
     boolean Subtraction;
     boolean Multiplication;
     boolean Division;
 
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+    private void setupUIViews() {
         button0 = (Button) findViewById(R.id.button0);
         button1 = (Button) findViewById(R.id.button1);
         button2 = (Button) findViewById(R.id.button2);
@@ -65,74 +56,81 @@ public class MainActivity extends AppCompatActivity {
         buttonEquals = (Button) findViewById(R.id.buttonEquals);
         textView = (TextView) findViewById(R.id.textView);
         textView2 = (TextView) findViewById(R.id.textView2);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        setupUIViews();
 
         button0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText(textView.getText() + "0");
+                textView.setText(textView.getText().toString() + "0");
             }
         });
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText(textView.getText() + "1");
+                textView.setText(textView.getText().toString() + "1");
             }
         });
 
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText(textView.getText() + "2");
+                textView.setText(textView.getText().toString() + "2");
             }
         });
 
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText(textView.getText() + "3");
+                textView.setText(textView.getText().toString() + "3");
             }
         });
 
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText(textView.getText() + "4");
+                textView.setText(textView.getText().toString() + "4");
             }
         });
 
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText(textView.getText() + "5");
+                textView.setText(textView.getText().toString() + "5");
             }
         });
 
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText(textView.getText() + "6");
+                textView.setText(textView.getText().toString() + "6");
             }
         });
 
         button7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText(textView.getText() + "7");
+                textView.setText(textView.getText().toString() + "7");
             }
         });
 
         button8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText(textView.getText() + "8");
+                textView.setText(textView.getText().toString() + "8");
             }
         });
 
         button9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText(textView.getText() + "9");
+                textView.setText(textView.getText().toString() + "9");
             }
         });
 
@@ -141,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (textView == null) {
+                    assert false;
                     textView.setText("");
                 } else {
                     mValueOne = Float.parseFloat(textView.getText() + "");
@@ -183,19 +182,19 @@ public class MainActivity extends AppCompatActivity {
                 mValueTwo = Float.parseFloat(textView.getText() + "");
 
                 if (Addition == true) {
-                    textView.setText(mValueOne + mValueTwo + "");
+                    textView2.setText(mValueOne + mValueTwo + "");
                     Addition = false;
                 }
                 if (Subtraction == true) {
-                    textView.setText(mValueOne - mValueTwo + "");
+                    textView2.setText(mValueOne - mValueTwo + "");
                     Subtraction = false;
                 }
                 if (Multiplication == true) {
-                    textView.setText(mValueOne * mValueTwo + "");
+                    textView2.setText(mValueOne * mValueTwo + "");
                     Multiplication = false;
                 }
                 if (Division == true) {
-                    textView.setText(mValueOne / mValueTwo + "");
+                    textView2.setText(mValueOne / mValueTwo + "");
                     Division = false;
                 }
             }
@@ -204,18 +203,26 @@ public class MainActivity extends AppCompatActivity {
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText("");
+                if(textView.getText().length() > 0){
+                    CharSequence name = textView.getText().toString();
+                    textView.setText(name.subSequence(0, name.length()-1));
+                }
+                else{
+                    mValueOne = Double.NaN;
+                    mValueTwo = Double.NaN;
+                    textView.setText(null);
+                    textView2.setText(null);
+                }
             }
         });
 
         buttonDecimal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText(textView.getText() + ".");
+                textView.setText(textView.getText().toString() + ".");
             }
         });
 
-
-
     }
+
 }
